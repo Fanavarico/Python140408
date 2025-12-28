@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #e866ea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .calculate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Score Calculators</h1>
+        <form id="scoreForm">
+            <div class="form-group">
+                <label for="score">Enter Your Score:</label>
+                <input 
+                    type="number" 
+                    id="score" 
+                    name="score" 
+                    placeholder="Enter score (e.g., 85)"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+            </div>
+            <button type="submit" class="calculate-btn" id="calculateBtn">
+                Calculate
+            </button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('scoreForm');
+        const scoreInput = document.getElementById('score');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const messageDiv = document.getElementById('message');
+
+        function showMessage(text, type) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+        }
+
+        function hideMessage() {
+            messageDiv.style.display = 'none';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const score = parseFloat(scoreInput.value);
+            
+            if (isNaN(score) || score < 0) {
+                showMessage('Please enter a valid score (0 or greater)', 'error');
+                return;
+            }
+
+            // Disable button and show loading
+            calculateBtn.disabled = true;
+            calculateBtn.textContent = 'Calculating...';
+            showMessage('Sending score...', 'loading');
+
+            try {
+                const response = await fetch('/calculate/score', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ score: score })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showMessage(`Score submitted successfully! Response: ${JSON.stringify(data)}`, 'success');
+                } else {
+                    const errorText = await response.text();
+                    showMessage(`Error: ${response.status} - ${errorText || 'Failed to calculate score'}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`Network error: ${error.message}`, 'error');
+            } finally {
+                calculateBtn.disabled = false;
+                calculateBtn.textContent = 'Calculate';
+            }
+        });
+
+        // Clear message when user starts typing
+        scoreInput.addEventListener('input', () => {
+            if (messageDiv.style.display === 'block') {
+                hideMessage();
+            }
+        });
+    </script>
+</body>
+</html>
+
