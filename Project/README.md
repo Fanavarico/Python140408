@@ -1,19 +1,27 @@
 # ADVANCED Project L1 
 
-### Overview
+In file baraye in hast k yadavari shavad daghighan chikar krdim
+
+# Overview
 Yek app mikhaym besazim 
 App -> GUI + Backend (infrustructure)
-
-BACKEND (zirsakht) 
-- yek ghesmati dare k shoma user misazid
-- va soal tarh mikonid ---> gozine e hastand (tashrihio...)
-- javabe sahih daran
-- va khob dar saded --->yeki app run kone --> solaa namayesh dade mishe, taraf javab mide , score behesh mig
-
-**Python**, **Function-based**,  **ORM**, **Database**, **partial microservice**
+in app baraye **quiz management** tarahi shode. be goone ee k do ghesmat darim yek ghesmat soal ha va gozine ha tarahi mishe, yek file ham daneshjoo javab mide.
 
 
-### Sakhtare in app ch shekli mibasha
+az topic haye zir estefade mishe
+- **Python**
+- **Function-based** 
+- **ORM**
+- **Database**
+- **partial microservice**
+
+
+# Sakhtare in app ch shekli mibasha
+bebinid ma dar asl yek file README.md darim k hamin file hast ke tozihat neeveshte shdoe ast
+yek file **database.py** darim k configuration database oonja hast va niazi b taghir nadare
+yek ghesmat **models.py** darim k table ha va jadavel neveshte shdoe k niazi b taghirat nadare
+file **crud.py** yekseri function dare k ejaze mide shoma rooye table haye database *write* va *read* anjam bedid.
+
 ```bsh
 FANAVARI0226
 |
@@ -27,9 +35,14 @@ FANAVARI0226
 
 ```
 
+dar nahayat dota file bayad ejra beshe
+- **seed.py**
+in file dar asl shoma bazesh mikonid va soal matrah mikonid ba gozine ha
+- **main.py** 
+bad az tarahie soal ,inja mesle CLI hast ke daneshjoo javab mide be soalat
 
 
-### Database
+## Database
 tooye python yek zarf 
 ```python
 esm = 'ali'
@@ -50,14 +63,14 @@ mysql , sqlite , postgre ,....
 zaban hesab 
 tooye terminaleton --> codd zni d-->jadval ...
 
-python vghty yek adado bekhayd zakhrie konid -_> ketabkhone mysql-python sqlite-python 
+python vghty yek adado bekhayd zakhrie konid -> ketabkhone mysql-python sqlite-python 
 va tavabe b goone ee enevshte shdoe --> 
 
 ```python
 data = mysql.excute('select * from table')
 ```
 
-### ORM anjam bdid
+#### **ORM anjam bdid**
 databse ha begone e neevshgte msieh class ha --> k bejay einke inkaro koni
 
 ```python
@@ -74,12 +87,12 @@ pip install SQLalchemy
 ```
 
 
-### Database ro sakhtim
+## Database ro sakhtim
 ma raftim yek fiel sakhtim be esme **database.py** toosh omadim
 yek db sakhtim --> db khali 
 
 
-### Jadval haro koja besazim?
+## Jadval haro koja besazim?
 yek file msiazim **models.py** va inja jadval haro takmilesh mikonim
 
 ma yekseri jadval niaz darim
@@ -149,7 +162,7 @@ sotonet adadi , str, float , ....
 
 
 
-### Crud.py
+## **Crud.py**
 
 in yek file hast koli tabe hats
 in tavabe vase ine ke ma btonim adad varede database konim ya
@@ -160,7 +173,7 @@ function ha in ejazaro bema mide
 
 
 
-### seed.py
+## seed.py
 
 inja shoma question haro matrah mikoni
 - question besazi 
@@ -172,7 +185,7 @@ yek bar run mishe
 tooye seed.py --> misazish
 
 
-### main.py 
+## main.py 
 ino daneshjoo, danesh amooz run mikone
 
 - user miad
