@@ -204,7 +204,7 @@ ino daneshjoo, danesh amooz run mikone
 - main.py --> run konid javab bdid
 
 
-- 4 ta function crud.py
+- 3 ta function crud.py
 
 
 
@@ -243,5 +243,12 @@ main.py -->yekbar shode run koni
 
 3 ta function dar crud.py besazid
 
-DOHAFTE
-'''
+DOHAFTE zaman hast
+
+
+# Koja bargozari konim?
+dakhele Github bayad bargozari konid
+ke dakheel file [github_tutorial](github_tutorial.md) tozih dade shode
+
+
+
