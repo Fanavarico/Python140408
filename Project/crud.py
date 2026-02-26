@@ -26,7 +26,7 @@ def creat_question(db:Session,text:str):
     return question
 
 
-def add_choice(db:Session,question : Questions , text:str, is_corrct= False):
+def add_choice(db:Session,question : Questions , text:str, is_correct= False):
     choice = Choice(text=text, is_correct=is_correct, question=question)
     db.add(choice)
     db.commit()
