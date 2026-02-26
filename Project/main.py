@@ -1,6 +1,6 @@
 #ooni k mikhad estefade kone
 from database import Base , engine, get_db
-from crud import create_user, creat_question, add_choice , list_questions
+from crud import create_user, create_question, add_choice, list_questions
 from models import User, Questions, Choice, Answers
 
 db = get_db()

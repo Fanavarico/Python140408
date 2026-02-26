@@ -1,5 +1,5 @@
 #table (jadval) besazim
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from database import Base #az database.py improt mikonim BASE
 
@@ -18,7 +18,7 @@ class User(Base):
     #--soton haye bade
     name = Column(String, nullable=False) #null khali bashe
     #answers = Column(String, nullable=False) #null khali bashe
-    answer = relationship('answers',back_populates='user')
+    answer = relationship('Answers', back_populates='user')
 
 
 #khalis akhtid 
@@ -31,8 +31,8 @@ class Questions(Base):
     text = Column(String, nullable=False)
     #choices = Column(String, nullable=False)
     #answer = Column(Integer, nullable=False)
-    choice = relationship('choice',back_populates='question')
-    answer = relationship('answers',back_populates='question')
+    choice = relationship('Choice', back_populates='question')
+    answer = relationship('Answers', back_populates='question')
 
 
 
@@ -43,7 +43,8 @@ class Choice(Base):
     text = Column(String, nullable=False)
     is_correct = Column(Boolean, nullable=False)
     question_id = Column(Integer, ForeignKey('questions.id'))
-    question = relationship('questions',back_populates='choice')
+    question = relationship('Questions', back_populates='choice')
+    answer = relationship('Answers', back_populates='choice')
 
 
 class Answers(Base):
@@ -53,6 +54,6 @@ class Answers(Base):
     question_id = Column(Integer, ForeignKey('questions.id'))
     choice_id = Column(Integer, ForeignKey('choice.id'))
 
-    user = relationship('user',back_populates='answer')
-    question = relationship('questions',back_populates='answer')
-    choice = relationship('choice',back_populates='answer')
+    user = relationship('User', back_populates='answer')
+    question = relationship('Questions', back_populates='answer')
+    choice = relationship('Choice', back_populates='answer')

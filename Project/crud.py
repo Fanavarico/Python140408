@@ -18,7 +18,7 @@ def create_user(db:Session, name:str):
     #create_user(db, name='ali')
     #create_user(db,name='reza')
 
-def creat_question(db:Session,text:str):
+def create_question(db:Session,text:str):
     question = Questions(text=text)
     db.add(question)
     db.commit()
@@ -39,7 +39,7 @@ def add_choice(db:Session,question : Questions , text:str, is_correct= False):
 #tabeye read 
 def list_questions(db:Session):
     #kole soal haro behet mide 
-    return db.qeury(Questions).all()
+    return db.query(Questions).all()
 
 
 #------
