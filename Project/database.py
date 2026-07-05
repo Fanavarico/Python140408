@@ -5,6 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base ,sessionmaker
 
 #motor misaze
+
+#miayim yek database bename quiz misazim 
+
+
 engine = create_engine('sqlite:///quiz.db', echo=False)
 SessionLocal = sessionmaker(bind=engine,autoflush=False, autocommit=False)
 Base = declarative_base()
