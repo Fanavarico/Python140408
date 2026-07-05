@@ -2,8 +2,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from database import Base #az database.py improt mikonim BASE
-
-
+from database import engine
 '''
 yadavari
 ----USERS----
@@ -57,3 +56,9 @@ class Answers(Base):
     user = relationship('User', back_populates='answer')
     question = relationship('Questions', back_populates='answer')
     choice = relationship('Choice', back_populates='answer')
+
+
+Base.metadata.create_all(engine)
+
+
+
